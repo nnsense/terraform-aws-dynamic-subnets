@@ -83,6 +83,12 @@ variable "nat_elastic_ips" {
   description = "Existing Elastic IPs to attach to the NAT Gateway(s) or Instance(s) instead of creating new ones."
 }
 
+variable "single_ngw" {
+  type        = bool
+  default     = true
+  description = "Create a single Nat Gateway instead of one per subnet"
+}
+
 variable "map_public_ip_on_launch" {
   type        = bool
   default     = true
