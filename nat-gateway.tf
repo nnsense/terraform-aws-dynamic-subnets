@@ -11,7 +11,8 @@ locals {
   nat_gateway_eip_count   = local.use_existing_eips ? 0 : local.nat_gateways_count
   gateway_eip_allocations = local.use_existing_eips ? data.aws_eip.nat_ips.*.id : aws_eip.default.*.id
   eips_allocations        = local.use_existing_eips ? data.aws_eip.nat_ips.*.id : aws_eip.default.*.id
-  nat_gateways_count      = var.nat_gateway_enabled ? length(var.availability_zones) : 0
+  ngw_count_if_single     = var.single_ngw ? 1 : length(var.availability_zones)
+  nat_gateways_count      = var.nat_gateway_enabled ? length(local.ngw_count_if_single) : 0
 }
 
 resource "aws_eip" "default" {
