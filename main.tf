@@ -177,7 +177,7 @@ locals {
 
   # A NAT device is needed to NAT from private IPv4 to public IPv4 or to perform NAT64 for IPv6.
   # An AWS NAT instance does not perform NAT64, and we choose not to try to support NAT64 via NAT instances at this time.
-  nat_instance_useful = local.private4_enabled
+  nat_instance_useful = local.private4_enabled || local.public4_enabled
   nat_gateway_useful  = local.nat_instance_useful || local.public_dns64_enabled || local.private_dns64_enabled
   nat_count           = min(local.subnet_az_count, var.max_nats)
 
